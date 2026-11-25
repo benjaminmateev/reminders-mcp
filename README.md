@@ -13,4 +13,4 @@ Reminders.app must be running. On another Mac, run it over SSH:
 claude mcp add reminders -- ssh -T my-mac 'node ~/reminders-mcp/index.js'
 ```
 
-MIT licence.
+MIT licence, see LICENSE.
