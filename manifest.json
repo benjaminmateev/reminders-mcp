@@ -1,0 +1,53 @@
+{
+  "manifest_version": "0.2",
+  "name": "reminders-mcp",
+  "display_name": "Apple Reminders",
+  "version": "0.1.0",
+  "description": "List, search, create and complete Apple Reminders from Claude. Runs on your Mac.",
+  "author": {
+    "name": "Ben Mateev",
+    "url": "https://supercharged.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benjaminmateev/reminders-mcp"
+  },
+  "homepage": "https://github.com/benjaminmateev/reminders-mcp",
+  "server": {
+    "type": "node",
+    "entry_point": "dist/server.cjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/server.cjs"
+      ]
+    }
+  },
+  "tools": [
+    {
+      "name": "list_lists",
+      "description": "List all Reminders lists"
+    },
+    {
+      "name": "list_reminders",
+      "description": "List or search reminders"
+    },
+    {
+      "name": "create_reminder",
+      "description": "Create a reminder, with optional due date and notes"
+    },
+    {
+      "name": "complete_reminder",
+      "description": "Mark a reminder as done"
+    }
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin"
+    ],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "license": "MIT"
+}

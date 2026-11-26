@@ -1,0 +1,6 @@
+node_modules/
+index.js
+package*.json
+.claude-plugin/
+.git/
+*.mcpb

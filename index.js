@@ -14,6 +14,7 @@ function run(argv) {
     if (!name) return R.defaultList();
     const hit = R.lists.whose({ name: name })();
     if (!hit.length) throw new Error('No list named ' + name);
+    if (hit.length > 1) throw new Error('Several lists are named ' + name + '; rename one in Reminders');
     return hit[0];
   };
   const dump = (l, completed) => {
@@ -33,13 +34,13 @@ function run(argv) {
     case 'create': {
       const props = { name: a.title };
       if (a.notes) props.body = a.notes;
-      const r = R.Reminder(props);
-      findList(a.list).reminders.push(r);
       if (a.due) {
         const m = /^(\\d{4})-(\\d{2})-(\\d{2})$/.exec(a.due);
-        if (m) r.alldayDueDate = new Date(+m[1], +m[2] - 1, +m[3]);
-        else r.dueDate = new Date(a.due);
+        if (m) props.alldayDueDate = new Date(+m[1], +m[2] - 1, +m[3]);
+        else props.dueDate = new Date(a.due);
       }
+      const r = R.Reminder(props);
+      findList(a.list).reminders.push(r);
       return JSON.stringify({ id: r.id(), title: r.name(), due: r.dueDate() });
     }
     case 'complete': {
@@ -53,7 +54,7 @@ function run(argv) {
 
 const jxa = (args) =>
   new Promise((resolve, reject) =>
-    execFile("osascript", ["-l", "JavaScript", "-e", JXA, JSON.stringify(args)], { timeout: 30000 }, (err, stdout, stderr) =>
+    execFile("osascript", ["-l", "JavaScript", "-e", JXA, JSON.stringify(args)], { timeout: 30000, maxBuffer: 32 << 20 }, (err, stdout, stderr) =>
       err ? reject(new Error((stderr || err.message).trim())) : resolve(stdout.trim())));
 
 const tool = (fn) => async (args) => {
@@ -96,4 +97,4 @@ server.registerTool("complete_reminder", {
   inputSchema: { id: z.string().startsWith("x-apple-reminder://").max(200) },
 }, tool((a) => jxa({ op: "complete", ...a })));
 
-await server.connect(new StdioServerTransport());
+server.connect(new StdioServerTransport());

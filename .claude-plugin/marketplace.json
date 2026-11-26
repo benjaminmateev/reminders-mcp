@@ -1,0 +1,15 @@
+{
+  "name": "reminders-mcp",
+  "owner": {
+    "name": "Ben Mateev",
+    "url": "https://supercharged.sh"
+  },
+  "plugins": [
+    {
+      "name": "reminders",
+      "source": "./",
+      "description": "List, search, create and complete Apple Reminders from Claude. Runs on your Mac."
+    }
+  ],
+  "description": "List, search, create and complete Apple Reminders from Claude. Runs on your Mac."
+}

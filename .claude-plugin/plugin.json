@@ -1,0 +1,22 @@
+{
+  "name": "reminders",
+  "version": "0.1.0",
+  "description": "List, search, create and complete Apple Reminders from Claude. Runs on your Mac.",
+  "author": {
+    "name": "Ben Mateev",
+    "url": "https://supercharged.sh"
+  },
+  "homepage": "https://github.com/benjaminmateev/reminders-mcp",
+  "license": "MIT",
+  "mcpServers": {
+    "reminders": {
+      "command": "node",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/dist/server.cjs"
+      ]
+    }
+  },
+  "network": {
+    "hosts": []
+  }
+}
